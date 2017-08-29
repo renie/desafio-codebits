@@ -25,12 +25,14 @@ Adicione instruções de instalação, execução dos testes e execução da apl
 
 ## Dependências
 
-[TODO]
+npm install -g mocha
+npm install
+
 
 ## Testes
 
-[TODO]
+npm test
 
 ## Executando a Aplicação
 
-[TODO]
+npm start
