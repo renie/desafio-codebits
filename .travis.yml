@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - node
+services:
+  - mongod
+before_install:
+  - npm install -g mocha
+install:
+  - npm install
+script:
+  - npm test
