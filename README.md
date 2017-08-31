@@ -1,4 +1,4 @@
-# Desafio Codebits
+# Desafio Codebits [![Build Status](https://travis-ci.org/renie/desafio-codebits.svg?branch=master)](https://travis-ci.org/renie/desafio-codebits)
 
 O objetivo deste desafio de código é criar um clone simples do [GitHub Gist](https://gist.github.com/).
 
