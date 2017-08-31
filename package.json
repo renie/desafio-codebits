@@ -4,8 +4,8 @@
   "description": "O objetivo deste desafio de código é criar um clone simples do [GitHub Gist](https://gist.github.com/).",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "mocha -- ./test/**/*.js"
+    "start": "nodemon --inspect --use_strict server.js",
+    "test": "NODE_ENV=test mocha --use-strict --full-trace -- ./test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
-    "express": "^4.15.4"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.9"
   }
 }

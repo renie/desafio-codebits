@@ -1,10 +1,14 @@
 var express = require('express'),
 	app		= express(),
-	port	= process.env.PORT || 3000;
+	port	= process.env.PORT || 3000,
+	http	= require('http');;
 
-app.get('/', function(req, res) {
-	res.send({ data: "service up" });
-});
+require('./api/model/DBStart.js');
+
+app.get('/', (req, res) => res.status(200).send({ data: 'service up' }));
+app.all('/', (req, res) => res.status(405).send());
+
+app.use('/snippet', require('./api/controller/Snippet').getRouter());
 
 app.listen(port);
 

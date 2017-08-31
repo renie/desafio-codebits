@@ -1,4 +1,4 @@
-GLOBAL.REQLIB		= require('app-root-path').require,
-GLOBAL.APP			= REQLIB('server.js'),
-GLOBAL.SUPERTEST	= require('supertest')(APP),
-GLOBAL.ASSERT		= require('assert');
+global.REQLIB		= require('app-root-path').require,
+global.APP			= REQLIB('server.js'),
+global.SUPERTEST	= require('supertest')(APP),
+global.ASSERT		= require('assert');

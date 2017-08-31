@@ -25,6 +25,10 @@ Adicione instruções de instalação, execução dos testes e execução da apl
 
 ## Dependências
 
+- Install NodeJS (min. 8.4.0)
+- Install MongoDB
+
+
 npm install -g mocha
 npm install
 
