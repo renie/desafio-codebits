@@ -22,7 +22,7 @@ SnippetController = SC = {
 		try {
 			snippets = SC.parsePersistData(method, req.body);
 		} catch (err) {
-			Utils.respond(res, 500, err.message);
+			Utils.respond(res, 400, err.message);
 			return false;
 		}
 		
@@ -34,6 +34,8 @@ SnippetController = SC = {
 		Promise.all(listPromises)
 				.then(data => Utils.respond(res, 200, data))
 				.catch(err => Utils.respond(res, 500, err.message));
+		
+		return SC;
 	},
 	
 	parsePersistData : (method, requestBody) => {
@@ -87,6 +89,22 @@ SnippetController = SC = {
 		});
 		
 		return finalList;
+	},
+	
+	remove : (req, res) => {
+		if (!req.params.id)
+			Utils.respond(res, 400, 'An id is needed to remove items.');
+		
+		SC.Snippet.findByIdAndRemove(req.params.id, (err, snippet) => { 
+			if (!err && !snippet) {
+				Utils.respond(res, 404, 'Id not found on database.');
+				return false;
+			}
+			
+			Utils.defaultRespond(res, err, snippet);
+		});
+		
+		return SC;
 	}
 	
 };
@@ -94,5 +112,6 @@ SnippetController = SC = {
 router.get('/', SnippetController.getAll);
 router.post('/', SnippetController.persist);
 router.put('/', SnippetController.persist);
+router.delete('/:id', SnippetController.remove);
 
 module.exports = SnippetController;

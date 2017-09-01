@@ -5,6 +5,8 @@ var Utils = {
 			'errors': null
 		};
 		
+		data = (data instanceof Array) ? data : [data];
+		
 		code.toString().match(/^2/) ? newData.data = data : newData.errors = data;
 		
 		return newData;

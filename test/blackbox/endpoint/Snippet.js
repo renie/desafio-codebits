@@ -95,7 +95,7 @@ describe('Snippet', () => {
 				})
 		});
 		
-		it('PUT /snippet : update first two elements', (done) => {
+		it('PUT /snippet : update first two entries', (done) => {
 			let lastData	= CLONEARRAY(receivedData),
 				test		= CLONEARRAY(testData);
 			
@@ -135,39 +135,74 @@ describe('Snippet', () => {
 						&& ASSERT.equal(realUpdatedValues, test.length));
 				})
 		});
+		
+		it('DELETE /snippet : remove one entry', (done) => {
+			SUPERTEST
+				.delete('/snippet/' + receivedData[0]._id)
+				.set('Accept', 'application/json')
+				.expect(200)
+				.expect('Content-Type', /json/)
+				.end((err, res) => {
+					let data = res.body;
+					
+					if (err) {
+						console.error(data.errors);
+						return done(err);
+					}
+					
+					data = data.data;
+					
+					done(ASSERT.ok(data) 
+						&& ASSERT.ok((data instanceof Array))
+						&& ASSERT.equal(data.length, 1)
+						&& ASSERT.equal(data[0]._id, receivedData[0]._id));
+				})
+		});
 	});
 	
 	describe('Error Tests', () => {
-		it('POST /snippet : create entry wrong format (500)', (done) => {
+		it('POST /snippet : create entry wrong format (400)', (done) => {
 			SUPERTEST
 				.post('/snippet')
 				.set('Accept', 'application/json')
 				.send({'data': testData[0]})
-				.expect(500, done)
+				.expect(400, done)
 		});
 		
-		it('POST /snippet : create entry no data (500)', (done) => {
+		it('POST /snippet : create entry no data (400)', (done) => {
 			SUPERTEST
 				.post('/snippet')
 				.set('Accept', 'application/json')
 				.send()
-				.expect(500, done)
+				.expect(400, done)
 		});
 		
-		it('PUT /snippet : update entry wrong format (500)', (done) => {
+		it('PUT /snippet : update entry wrong format (400)', (done) => {
 			SUPERTEST
 				.post('/snippet')
 				.set('Accept', 'application/json')
 				.send({'data': receivedData[0]})
-				.expect(500, done)
+				.expect(400, done)
 		});
 		
-		it('PUT /snippet : update entry no data (500)', (done) => {
+		it('PUT /snippet : update entry no data (400)', (done) => {
 			SUPERTEST
 				.post('/snippet')
 				.set('Accept', 'application/json')
 				.send()
-				.expect(500, done)
+				.expect(400, done)
+		});
+		
+		it('DELETE /snippet : remove entry just removed (404)', (done) => {
+			SUPERTEST
+				.delete('/snippet/' + receivedData[0]._id)
+				.expect(404, done)
+		});
+		
+		it('DELETE /snippet : remove entry no data (404)', (done) => {
+			SUPERTEST
+				.delete('/snippet/')
+				.expect(404, done)
 		});
 	});
 });
