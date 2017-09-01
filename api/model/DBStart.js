@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
 	mongoDB = 'mongodb://127.0.0.1/' + dbname,
 	connection;
 
+mongoose.Promise = global.Promise;
 connection = mongoose.connect(mongoDB, { useMongoClient: true });
-
 
 
 connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
