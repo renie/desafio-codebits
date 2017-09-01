@@ -11,8 +11,10 @@ describe('Root', () => {
 					if (err) 
 						return done(err);
 					
-					done(ASSERT.equal(res.body.data, 'service up'));
-				})
+					ASSERT.equal(res.body.data, 'service up');
+					
+					done();
+				});
 		});
 	});
 	
@@ -20,19 +22,19 @@ describe('Root', () => {
 		it('POST / : 405 method not allowed', (done) => {
 			SUPERTEST
 				.post('/')
-				.expect(405, done)
+				.expect(405, done);
 		});
 		
 		it('PUT / : 405 method not allowed', (done) => {
 			SUPERTEST
 				.post('/')
-				.expect(405, done)
+				.expect(405, done);
 		});
 		
 		it('DELETE / : 405 method not allowed', (done) => {
 			SUPERTEST
 				.post('/')
-				.expect(405, done)
+				.expect(405, done);
 		});
 	});
 });
