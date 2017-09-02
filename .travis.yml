@@ -6,8 +6,10 @@ services:
 before_install:
   - npm install -g mocha
   - npm install -g grunt-cli
+  - npm install -g bower
 install:
   - npm install
+  - bower install
 script:
-  - grunt
+  - npm run build
   - npm test

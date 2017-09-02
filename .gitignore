@@ -1,6 +1,7 @@
 node_modules
 temp
 public
+src/libs
 .grunt
 .npm
 *.log

@@ -9,10 +9,14 @@ module.exports = grunt => {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		copy: {
-			main: { expand: true, cwd: tempPath, src: '**', dest: publicPath }
+			main: { expand: true, cwd: tempPath, src: '**', dest: publicPath },
+			libs: { expand: true, cwd: sourcePath + 'libs', src: '**', dest: publicPath + 'libs' }
 		},
 		
-		clean: [publicPath, tempPath],
+		clean: {
+			all : [publicPath, tempPath],
+			tmp : [tempPath]
+		},
 		
 		mkdir: {
 			all: {
@@ -20,18 +24,40 @@ module.exports = grunt => {
 					mode: 0777,
 					create: [publicPath]
 				},
-			},
+			}
 		},
 		
 		processhtml: { 
 			dist: { 
 				files: { 'temp/index.html': ['src/index.html'] }
 			}
+		},
+		
+		browserify: {
+			dist: {
+				files: {
+					'temp/js/app.js': 'src/js/**/*.js'
+				},
+				options: {
+					transform: [['babelify', { presets: "es2015" }]],
+					plugins: "uglifyify"
+				}
+			}
+		},
+		
+		watch: {
+			scripts: {
+				files: [sourcePath + '**/*'],
+				tasks: ['default'],
+				options: { spawn: false },
+			},
 		}
 		
 	});
 	
-	grunt.registerTask('clear', ['clean', 'mkdir']);
+	grunt.registerTask('clear', ['clean:all', 'mkdir']);
+	grunt.registerTask('js', ['browserify']);
 	
-	grunt.registerTask('default', ['clear', 'processhtml', 'copy']);
+	
+	grunt.registerTask('default', ['clear', 'processhtml', 'js', 'copy', 'clean:tmp']);
 };

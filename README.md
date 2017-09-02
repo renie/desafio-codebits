@@ -29,22 +29,26 @@ Adicione instruções de instalação, execução dos testes e execução da apl
 - Install NodeJS (min. 8.4.0)
 - Install MongoDB
 
-- npm install -g mocha
-- npm install -g grunt-cli
-- npm install
+`cd [clone_path]`
 
+`chmod +x install_dependencies.sh`
+
+`install_dependencies.sh`
 
 ## Testes
 
-npm test
+`npm test`
 
 
 ## Executando a Aplicação (debug mode)
 
-npm run debug
+`npm run debug`
+
+`grunt watch #frontend only`
 
 
 ## Executando a Aplicação
 
-npm run build
-npm start
+`npm run build`
+
+`npm start`

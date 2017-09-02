@@ -1,0 +1,22 @@
+{
+  "name": "desafio-codebits",
+  "description": "O objetivo deste desafio de código é criar um clone simples do [GitHub Gist](https://gist.github.com/).",
+  "main": "server.js",
+  "authors": [
+    "Renie Siqueira"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/renie/desafio-codebits",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "^1.3.3",
+    "backbone.nativeajax": "^0.4.4"
+  }
+}
