@@ -5,6 +5,7 @@ var testData = [
 		{"description":"Description Ruby for test 2","filename":"test2.rb","content":"puts \"bla\""},
 		{"description":"Description Python for test 3","filename":"test3.py","content":"print(\"bla\")"}
 	],
+	url = URLAPIPATH + 'snippet/',
 	receivedData;
 
 describe('Snippet', () => {
@@ -12,7 +13,7 @@ describe('Snippet', () => {
 	describe('Success Tests', () => {
 		it('GET /snippet : get a list of all entries (empty)', (done) => {
 			SUPERTEST
-				.get('/snippet')
+				.get(url)
 				.set('Accept', 'application/json')
 				.expect(200)
 				.expect('Content-Type', /json/)
@@ -36,7 +37,7 @@ describe('Snippet', () => {
 		
 		it('POST /snippet : create entry', (done) => {
 			SUPERTEST
-				.post('/snippet')
+				.post(url)
 				.set('Accept', 'application/json')
 				.send({'data': [testData[0]]})
 				.expect(200)
@@ -57,7 +58,7 @@ describe('Snippet', () => {
 					
 		it('POST /snippet : create multiple entries', (done) => {
 			SUPERTEST
-				.post('/snippet')
+				.post(url)
 				.set('Accept', 'application/json')
 				.send({'data': testData})
 				.expect(200)
@@ -78,7 +79,7 @@ describe('Snippet', () => {
 		
 		it('GET /snippet : get a list of all entries (full)', (done) => {
 			SUPERTEST
-				.get('/snippet')
+				.get(url)
 				.set('Accept', 'application/json')
 				.expect(200)
 				.expect('Content-Type', /json/)
@@ -114,7 +115,7 @@ describe('Snippet', () => {
 			lastData[1].content		= 'Hash.new';
 			
 			SUPERTEST
-				.put('/snippet')
+				.put(url)
 				.set('Accept', 'application/json')
 				.send({'data': lastData})
 				.expect(200)
@@ -145,7 +146,7 @@ describe('Snippet', () => {
 		
 		it('DELETE /snippet : remove one entry', (done) => {
 			SUPERTEST
-				.delete('/snippet/' + receivedData[0]._id)
+				.delete(url + receivedData[0]._id)
 				.set('Accept', 'application/json')
 				.expect(200)
 				.expect('Content-Type', /json/)
@@ -172,7 +173,7 @@ describe('Snippet', () => {
 	describe('Error Tests', () => {
 		it('POST /snippet : create entry wrong format (400)', (done) => {
 			SUPERTEST
-				.post('/snippet')
+				.post(url)
 				.set('Accept', 'application/json')
 				.send({'data': testData[0]})
 				.expect(400, done);
@@ -180,7 +181,7 @@ describe('Snippet', () => {
 		
 		it('POST /snippet : create entry no data (400)', (done) => {
 			SUPERTEST
-				.post('/snippet')
+				.post(url)
 				.set('Accept', 'application/json')
 				.send()
 				.expect(400, done);
@@ -188,7 +189,7 @@ describe('Snippet', () => {
 		
 		it('PUT /snippet : update entry wrong format (400)', (done) => {
 			SUPERTEST
-				.post('/snippet')
+				.post(url)
 				.set('Accept', 'application/json')
 				.send({'data': receivedData[0]})
 				.expect(400, done);
@@ -196,7 +197,7 @@ describe('Snippet', () => {
 		
 		it('PUT /snippet : update entry no data (400)', (done) => {
 			SUPERTEST
-				.post('/snippet')
+				.post(url)
 				.set('Accept', 'application/json')
 				.send()
 				.expect(400, done);
@@ -204,13 +205,13 @@ describe('Snippet', () => {
 		
 		it('DELETE /snippet : remove entry just removed (404)', (done) => {
 			SUPERTEST
-				.delete('/snippet/' + receivedData[0]._id)
+				.delete(url + receivedData[0]._id)
 				.expect(404, done);
 		});
 		
 		it('DELETE /snippet : remove entry no data (404)', (done) => {
 			SUPERTEST
-				.delete('/snippet/')
+				.delete(url)
 				.expect(404, done);
 		});
 	});
