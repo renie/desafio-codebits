@@ -5,7 +5,9 @@ services:
   - mongod
 before_install:
   - npm install -g mocha
+  - npm install -g grunt-cli
 install:
   - npm install
 script:
+  - grunt
   - npm test

@@ -4,8 +4,10 @@
   "description": "O objetivo deste desafio de código é criar um clone simples do [GitHub Gist](https://gist.github.com/).",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --inspect --use_strict server.js",
-    "test": "NODE_ENV=test mocha --use-strict --full-trace -- ./test/**/*.js"
+    "build": "grunt",
+    "debug": "NODE_ENV=devtest nodemon --inspect --use_strict server.js",
+    "start": "nodemon --use_strict server.js",
+    "test": "NODE_ENV=autotest mocha --use-strict --full-trace -- ./test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,16 @@
   },
   "homepage": "https://github.com/renie/desafio-codebits#readme",
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-mkdir": "^1.0.0",
+    "grunt-processhtml": "^0.4.1",
+    "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "time-grunt": "^1.4.0"
   },
   "dependencies": {
     "app-root-path": "^2.0.1",

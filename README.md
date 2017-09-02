@@ -23,12 +23,14 @@ teste e não demostra todo o seu potencial.
 
 Adicione instruções de instalação, execução dos testes e execução da aplicação abaixo:
 
+
 ## Dependências
 
 - Install NodeJS (min. 8.4.0)
 - Install MongoDB
 
 - npm install -g mocha
+- npm install -g grunt-cli
 - npm install
 
 
@@ -36,6 +38,13 @@ Adicione instruções de instalação, execução dos testes e execução da apl
 
 npm test
 
+
+## Executando a Aplicação (debug mode)
+
+npm run debug
+
+
 ## Executando a Aplicação
 
+npm run build
 npm start
