@@ -17,12 +17,19 @@
 		max-width: 70%;
 	}
 	
-	.see-all {
+	.see-all, .add {
 		color: $blue;
 		display: block;
-		float: right;
 		font-weight: bold;
 		height: 60px;
 		line-height: 60px;
+	}
+	
+	.add {
+		float: left;
+	}
+	
+	.see-all {
+		float: right;
 	}
 }

@@ -13,7 +13,6 @@ html, body {
 }
 
 body {
-	border-bottom: 5px solid $black;
 	padding-bottom: 15px;
 }
 
@@ -45,7 +44,7 @@ a {
 }
 
 .hide {
-	display: none;
+	display: none !important;
 }
 
 .main-container {
@@ -53,3 +52,5 @@ a {
 }
 
 @import 'header.scss';
+
+@import 'highlightfix.scss';

@@ -10,6 +10,7 @@ module.exports = grunt => {
 		pkg: grunt.file.readJSON('package.json'),
 		copy: {
 			imgs: { expand: true, cwd: sourcePath + 'img', src: '**', dest: tempPath + 'img' },
+			extlibs: { expand: true, cwd: sourcePath + 'extlibs', src: '**/*', dest: tempPath + 'extlibs' },
 			main: { expand: true, cwd: tempPath, src: '**', dest: publicPath },
 			libs: { expand: true, cwd: sourcePath + 'libs', src: ['**', '!templates/**/*'], dest: publicPath + 'libs' }
 		},

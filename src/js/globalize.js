@@ -11,3 +11,5 @@ if (window.autotest) {
 	global.Backbone = require('../libs/backbone/backbone-min.js');
 	global.Backbone.ajax = require('../libs/backbone.nativeajax/backbone.nativeajax.js');
 }
+
+window.Extensions = global.Extensions = require('./extensions.js');

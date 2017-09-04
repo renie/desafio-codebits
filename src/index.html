@@ -4,6 +4,9 @@
 	<meta charset="UTF-8"/>
 	<title>Desafio Codebits</title>
 	<link rel="stylesheet" href="style/app.css"/>
+	<link rel="stylesheet" href="extlibs/prism/prism.css"/>
+	<link rel="stylesheet" href="extlibs/codeflask/codeflask.css"/>
+	
 </head>
 <body>
 	<header class="top-header">
@@ -16,11 +19,14 @@
 		<div class="wrapper centered-block">
 			<div class="snippet-list-container"></div>
 			<a href="#" title="See all snippets" class="see-all snippet-showall-button">See all snippets</a>
+			<a href="#" title="Create snippet" class="add snippet-add-button hide">+ Create snippet</a>
 		</div>
 	</div>
 	
-	<div class="main-container wrapper centered-block"></div>
+	<div id="main" class="main-container wrapper centered-block"></div>
 
+	<script src="extlibs/prism/prism.js"></script>
+	<script src="extlibs/codeflask/codeflask.js"></script>
 	<script src="libs/handlebars/handlebars.runtime.min.js"></script>
 	<script src="libs/underscore/underscore-min.js"></script>
 	<script src="libs/backbone/backbone-min.js"></script>

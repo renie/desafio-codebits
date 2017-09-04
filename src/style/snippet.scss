@@ -9,6 +9,11 @@
 		@extend .clearfix;
 	}
 	
+	ul {
+		max-height: 100%;
+		overflow: hidden;
+	}
+	
 	.snippets-item {
 		border-left: 5px solid $line-gray;
 		border-top: 8px solid transparent;
@@ -36,7 +41,7 @@
 			}
 		}
 		
-		.content, .avatar {
+		.content, .avatar, .language {
 			display: none;
 		}
 	}
@@ -63,12 +68,12 @@
 			border-radius: 1000px;
 			display: block;
 			float: left;
-			height: 40px;
+			height: 50px;
 			margin: 0 10px 10px 0;
-			width: 40px;
+			width: 50px;
 		}
 		
-		.filename, .description {
+		.filename, .description, .language {
 			float: left;
 			width: 80%;
 		}
@@ -83,10 +88,15 @@
 			border-radius: 5px;
 			clear: both;
 			float: none;
+			max-height: 150px;
 			padding: 10px;
 			width: 100%;
 			
 			@extend .clearfix;
+			
+			&.editdisable textarea {
+				pointer-events: none;
+			}
 		}
 	}
 }

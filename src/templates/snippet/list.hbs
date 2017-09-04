@@ -4,7 +4,8 @@
 		<div class="avatar"></div>
 		<div class="filename"><a href="#" title="Open snippet '{{this.filename}}'" class="snippet-edit-button">{{this.filename}}</a></div>
 		<div class="description">{{this.description}}</div>
-		<div class="content">{{this.content}}</div>
+		<div class="language">Language: {{this.lang}}</div>
+		<div class="content edit-disable" data-language="{{this.lang}}">{{this.content}}</div>
 	</li>
 {{/each}}
 </ul>

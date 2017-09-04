@@ -9,8 +9,9 @@ class SnippetV extends View {
 		this.templateName	= 'snippet';
 		this.collection		= new SnippetCollection();
 		this.bindMaps		= {
-								'snippet-edit-button': this.editSnippetListener,
-								'snippet-showall-button': this.showallSnippetListener
+								'snippet-edit-button': this.addSnippetListener,
+								'snippet-showall-button': this.showallSnippetListener,
+								'snippet-add-button': this.addSnippetListener
 							};
 		this.loadData();
 		
@@ -34,6 +35,10 @@ class SnippetV extends View {
 	}
 	
 	bindEvents() {
+		if (document.querySelector('.main-container .snippets-item')) {
+			(new CodeFlask).runAll('.main-container .snippets-item .content', { language: '', lineNumbers: true });
+		}
+		
 		document.body.addEventListener('click', ev => {
 			for ( let item in this.bindMaps) {
 				if (ev.target.classList.contains(item)) {
@@ -43,19 +48,21 @@ class SnippetV extends View {
 				}
 			}
 		});
-		
 		return this;
 	}
 	
-	editSnippetListener(ev) {
-		if (ev)
-			console.log('Edit from: ' + ev.target.title);
+	addSnippetListener(ev) {
+		document.querySelector('.top-container .snippet-add-button').classList.add('hide');
+		document.querySelector('.top-container .snippet-list-container').classList.remove('hide');
 		
-		return this;	
+		document.querySelector('.main-container').innerHTML = '';
+		
+		return this
 	}
 	
 	showallSnippetListener(ev) {
 		document.querySelector('.top-container .snippet-list-container').classList.add('hide');
+		document.querySelector('.top-container .snippet-add-button').classList.remove('hide');
 		
 		this.loadData(this.renderList.bind(this, '.main-container'));
 		

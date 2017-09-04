@@ -1,6 +1,6 @@
 global.NODENV		= process.env.NODE_ENV;
-global.ENVTEST		= (NODENV.indexOf('test') > -1);
-global.ENVAUTOTEST	= (NODENV === 'autotest');
+global.ENVTEST		= (NODENV && NODENV.indexOf('test') > -1);
+global.ENVAUTOTEST	= (NODENV && NODENV === 'autotest');
 
 
 var express 	= require('express'),
