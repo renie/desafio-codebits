@@ -102,6 +102,28 @@ describe('API Snippet', () => {
 				});
 		});
 		
+		it('GET /snippet : get just one entry', (done) => {
+			SUPERTEST
+				.get(url + receivedData[0]._id)
+				.set('Accept', 'application/json')
+				.expect(200)
+				.expect('Content-Type', /json/)
+				.end((err, res) => {
+					let data = res.body;
+					
+					if (err)
+						return done(err);
+					
+					data = data.data;
+					
+					ASSERT.ok(data);
+					ASSERT.ok((data instanceof Array));
+					ASSERT.equal(JSON.stringify(data[0]), JSON.stringify(receivedData[0]));
+					
+					done();
+				});
+		});
+		
 		it('PUT /snippet : update first two entries', (done) => {
 			let lastData	= CLONEARRAY(receivedData);
 			
@@ -213,6 +235,13 @@ describe('API Snippet', () => {
 			SUPERTEST
 				.delete(url)
 				.expect(404, done);
+		});
+		
+		it('GET /snippet : get just one entry with a fake id (500)', (done) => {
+			SUPERTEST
+				.get(url + 'fakeid')
+				.set('Accept', 'application/json')
+				.expect(500, done)
 		});
 	});
 });

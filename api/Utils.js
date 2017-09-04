@@ -20,10 +20,7 @@ var Utils = {
 		let code	= err ? 500 : 200,
 			newData = code == 200 ? data : err;
 		
-		if (err)
-			console.trace();
-		
-		return Utils.respond(response, code, data);
+		return Utils.respond(response, code, newData);
 	},
 	
 	defaultValidatePostData : (data) => {

@@ -15,6 +15,11 @@ SnippetController = SC = {
 		return SC;
 	},
 	
+	getOne : (req, res) => {
+		SC.Snippet.findOne({_id: req.params.id}, (err, data) => Utils.defaultRespond(res, err, data));		
+		return SC;	
+	},
+	
 	persist : (req, res) => {
 		let method = req.method,
 			snippets, listPromises;
@@ -109,6 +114,7 @@ SnippetController = SC = {
 	
 };
 
+router.get('/:id', SnippetController.getOne);
 router.get('/', SnippetController.getAll);
 router.post('/', SnippetController.persist);
 router.put('/', SnippetController.persist);
