@@ -88,15 +88,62 @@
 			border-radius: 5px;
 			clear: both;
 			float: none;
-			max-height: 150px;
+			height: 100px;
 			padding: 10px;
 			width: 100%;
 			
 			@extend .clearfix;
 			
-			&.editdisable textarea {
+			&.edit-disable textarea {
 				pointer-events: none;
 			}
 		}
+	}
+}
+
+.main-container {
+	input {
+		border: 1px solid $line-gray;
+		border-radius: 5px;
+		color: $black;
+		display: block;
+		font-size: 14px;	
+		padding: 6px 8px;
+	}
+	
+	input.description {
+		margin-bottom: -1px;
+		min-height: 35px;
+		width: 100%;
+	}
+	
+	.filecreator {
+		border: 1px solid $line-gray;
+		border-radius: 5px;
+		
+		input.filename {
+			border: none;
+			border-right: 1px solid $line-gray;
+			min-height: 35px;
+			width: 35%;
+		}
+		
+		.editor {
+			border-top: 1px solid $line-gray;
+			height: 500px;
+		}		
+	}
+	
+	.btn {
+		background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
+		border: 1px solid rgba(27,31,35,0.2);
+	    border-radius: 0.25em;
+		cursor: pointer;
+		display: block;
+		font-weight: bold;
+		margin-top: 10px;
+		padding: 6px 12px;
+		position: relative;
+		float: right;
 	}
 }

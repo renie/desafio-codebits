@@ -5,5 +5,5 @@ require('./globalize.js');
 var SnippetsView = require('./views/Snippet');
 
 (function(){
-	(new SnippetsView()).loadList('.top-container .snippet-list-container');
+	(new SnippetsView()).loadList('.top-container .snippet-list-container').filecreator();
 })();

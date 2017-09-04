@@ -1,4 +1,6 @@
-class SnippetM extends Backbone.Model {
+var Utils = require('../Utils.js');
+
+class SnippetModel extends Backbone.Model {
 	get urlRoot() {
 		return '/api/snippet';
 	}
@@ -8,16 +10,11 @@ class SnippetM extends Backbone.Model {
 	}
 
 	parse(res) {
-		res.extension = res.filename.replace(/.+(.[a-zA-z0-9]{2,4})$/, "$1");
+		if (res.data && res.data.length)
+			res = res.data[0];
 		
-		for (let item in Extensions) {
-			let na = Extensions[item].extensions.filter(item => item === res.extension); 
-			 
-			if (na.length > 0) {
-				res.lang = item.toLowerCase();
-				break;
-			} 
-		}
+		res.extension	= res.filename.replace(/.+(\.[a-zA-z0-9]{2,4})$/, "$1");
+		res.lang		= Utils.getLangByExtension(res.extension);
 		
 		return res;
 	}
@@ -29,7 +26,12 @@ class SnippetM extends Backbone.Model {
 		delete attrs.lang;
 		delete attrs.extension;
 
-		options.data = JSON.stringify(attrs);
+		let newData = {data:[]};
+		newData.data.push(attrs);
+
+		options.data = JSON.stringify(newData);
+		
+		options.contentType = 'application/json';
 
 		return Backbone.Model.prototype.save.call(this, attrs, options);
     }
@@ -38,4 +40,4 @@ class SnippetM extends Backbone.Model {
 	}
 }
 
-module.exports = SnippetM;
+module.exports = SnippetModel;

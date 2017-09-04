@@ -39,12 +39,12 @@ module.exports = grunt => {
 			compile: {
 				options: {
 					namespace: filePath => {
-						let regex = /^src\/templates\/([a-z0-9]+)\/[a-z0-9]+.hbs$/;
+						let regex = /^src\/templates\/([a-zA-Z0-9]+)\/[a-zA-Z0-9]+.hbs$/;
 						return filePath.replace(regex, "_templates.$1");
 					},
 					commonjs: true,
 					processName: filePath => {
-						let regex = /^src\/templates\/[a-z0-9]+\/([a-z0-9]+).hbs$/;
+						let regex = /^src\/templates\/[a-zA-Z0-9]+\/([a-zA-Z0-9]+).hbs$/;
 						return filePath.replace(regex, "$1");
 					}
 				},
