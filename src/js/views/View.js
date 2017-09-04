@@ -42,7 +42,7 @@ class View {
 		return this;
 	}
 	
-	bindMaps() {
+	bindEventMaps() {
 		if (this.bindedMaps || !this.bindMaps)
 			return this;
 		
@@ -51,8 +51,8 @@ class View {
 		for (let evt in this.bindMaps) {
 			document.body.addEventListener(evt, e => {
 				for ( let selector in this.bindMaps[evt]) {
-					if (ev.target.classList.contains(selector)) {
-						ev.preventDefault();
+					if (e.target.classList.contains(selector)) {
+						e.preventDefault();
 						this.bindMaps[evt][selector].call(this, e);
 						return false;
 					}

@@ -117,6 +117,7 @@ SnippetController = SC = {
 router.get('/:id', SnippetController.getOne);
 router.get('/', SnippetController.getAll);
 router.post('/', SnippetController.persist);
+router.put('/:id', SnippetController.persist);
 router.put('/', SnippetController.persist);
 router.delete('/:id', SnippetController.remove);
 

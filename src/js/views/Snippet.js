@@ -29,6 +29,7 @@ class SnippetV extends View {
 		if (!targetElement)
 			throw new Error('A target element is needed.');
 		
+		document.querySelector(targetElement).innerHTML = "Loading...";
 		return (this.everFetched ? this.renderList(targetElement) : this.addFetchCallback(this.renderList.bind(this, targetElement)));
 	}
 	
@@ -36,7 +37,8 @@ class SnippetV extends View {
 		data = data ? data.data : this.collection.toJSON();
 		
 		this.render(this.templates.list({snippets: data}), targetElement);
-		this.bindMaps()();
+		this.bindEventMaps();
+		this.reloadHighlights();
 		
 		return this;
 	}
@@ -58,14 +60,20 @@ class SnippetV extends View {
 	}
 	
 	addSnippetListener(ev) {
+		let model = null;
+		
+		if (ev.target.dataset.id) {
+			model = this.collection.get(ev.target.dataset.id);
+		}
+			
 		document.querySelector('.top-container .snippet-add-button').classList.add('hide');
 		document.querySelector('.top-container .snippet-list-container').classList.remove('hide');
 		
 		document.querySelector('.main-container').innerHTML = '';
 		
-		this.filecreator();
+		this.filecreator(model);
 		
-		return this
+		return this;
 	}
 	
 	saveSnippetListener(ev) {
@@ -77,6 +85,11 @@ class SnippetV extends View {
 			item.value = "";
 		});
 		
+		if (newFields.id) {
+			newFields._id = newFields.id;
+			delete newFields.id;
+		}
+		
 		this.editor.update("");	
 		this.saveSnippet(newFields);
 		
@@ -85,22 +98,32 @@ class SnippetV extends View {
 	
 	saveSnippet(data) {
 		let model = new SnippetModel(data);
-		model.save().then(data => alert('Snippet Saved!')).catch(e => alert('Error on Snippet saving. Try again later...'));
+		model.save().then(data => {
+							alert('Snippet Saved!');
+							this.loadData(() => this.loadList('.top-container .snippet-list-container'));
+						}).catch(e => alert('Error on Snippet saving. Try again later...'));
 		
 		return this;
 	}
 	
-	filecreator() {
-		this.render(this.templates.createAndUpdateForm(), '.main-container');
-		this.reloadEditor();
+	filecreator(model) {
+		let id = model ? model.get('_id') : null ;
+		this.render(this.templates.createAndUpdateForm({id: id}), '.main-container');
+		this.reloadEditor(model);
 	
-		this.bindFormEvents();
-		
 		return this;
 	}
 	
-	reloadEditor(lang) {
-		lang = lang || 'javascript';
+	reloadEditor(model) {
+		let lang;
+		
+		if (model instanceof SnippetModel) {
+			lang = model.get('lang');
+		} else {
+			lang = model || 'javascript';
+			model = null;
+		}
+		
 		let textarea;
 		
 		this.editor = new CodeFlask();
@@ -109,8 +132,30 @@ class SnippetV extends View {
 		textarea.name = 'content';
 		
 		this.editor.onUpdate(code => textarea.value = code);
-		
+		this.populateForm(model)
+				
 		return this;
+	}
+	
+	reloadHighlights() {
+		(new CodeFlask()).runAll('.main-container .snippets-item .content', { language: '', lineNumbers: true });
+	}
+	
+	populateForm(model) {
+		if (!model)
+			return this;
+		
+		this.editor.update(model.get('content'));
+		
+		Array.from(document.querySelectorAll('.main-container form input')).forEach(item => {
+			let attr = item.name;
+			if (item.name == 'id')
+				attr = '_id';
+			
+			item.value = model.attributes[attr];
+		});
+		
+		return this
 	}
 }
 

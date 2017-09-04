@@ -241,3 +241,7 @@ CodeFlask.prototype.update = function(string) {
 CodeFlask.prototype.highlight = function(highlightCode) {
     Prism.highlightElement(highlightCode);
 }
+
+
+if (typeof exports === 'object')
+	module.exports = CodeFlask;
