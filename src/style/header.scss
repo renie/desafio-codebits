@@ -1,0 +1,28 @@
+.top-header {
+	background: $black;
+	padding: 12px;
+
+	h1 {
+		color: $white;
+	}
+}
+
+.top-container {
+	border-bottom: 1px solid $line-gray;
+	padding: 20px 0;
+	
+	.snippet-list-container {
+		float: left;
+		height: 60px;
+		max-width: 70%;
+	}
+	
+	.see-all {
+		color: $blue;
+		display: block;
+		float: right;
+		font-weight: bold;
+		height: 60px;
+		line-height: 60px;
+	}
+}

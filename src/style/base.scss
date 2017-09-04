@@ -1,4 +1,55 @@
+@import 'variables.scss';
+
 * {
+	box-sizing: border-box;
+	font-family: $font-stack;
 	padding: 0;
 	margin: 0;
 }
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	border-bottom: 5px solid $black;
+	padding-bottom: 15px;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+	
+	&:hover, &:focus {
+		text-decoration: underline;
+	}
+}
+
+.clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+.wrapper {
+	width: 1020px;
+	
+	@extend .clearfix;
+}
+
+.centered-block {
+	margin: 0 auto;
+}
+
+.hide {
+	display: none;
+}
+
+.main-container {
+	padding: 20px 0;
+}
+
+@import 'header.scss';
