@@ -42,6 +42,27 @@ class View {
 		return this;
 	}
 	
+	bindMaps() {
+		if (this.bindedMaps || !this.bindMaps)
+			return this;
+		
+		this.bindedMaps = true;
+		
+		for (let evt in this.bindMaps) {
+			document.body.addEventListener(evt, e => {
+				for ( let selector in this.bindMaps[evt]) {
+					if (ev.target.classList.contains(selector)) {
+						ev.preventDefault();
+						this.bindMaps[evt][selector].call(this, e);
+						return false;
+					}
+				}
+			})
+		}
+		
+		return this;
+	}
+	
 	get templates() {
 		if (!this.templateName)
 			throw new Error('No templateName was defined.');

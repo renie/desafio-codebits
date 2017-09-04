@@ -10,17 +10,18 @@ class SnippetV extends View {
 		
 		this.templateName	= 'snippet';
 		this.collection		= new SnippetCollection();
-		this.bindClickMaps	= {
-								'snippet-edit-button'			: this.addSnippetListener,
-								'snippet-showall-button'		: this.showallSnippetListener,
-								'snippet-add-button'			: this.addSnippetListener,
-								'snippet-change-filetype-btn'	: this.saveSnippetListener
-							};
-		this.bindBlurMaps	= {
-								'snippet-change-filetype-field'	: this.changeFiletypeLietener
+		this.bindMaps		= {
+								'click' : {
+									'snippet-edit-button'			: this.addSnippetListener,
+									'snippet-showall-button'		: this.showallSnippetListener,
+									'snippet-add-button'			: this.addSnippetListener,
+									'snippet-change-filetype-btn'	: this.saveSnippetListener
+								},
+								'focusout' : {
+									'snippet-change-filetype-field'	: this.changeFiletypeListener	
+								}
 							};
 		this.loadData();
-		
 		return this;
 	}
 
@@ -35,32 +36,25 @@ class SnippetV extends View {
 		data = data ? data.data : this.collection.toJSON();
 		
 		this.render(this.templates.list({snippets: data}), targetElement);
-		this.bindEvents();
+		this.bindMaps()();
 		
 		return this;
 	}
 	
-	bindEvents() {
-		if (document.querySelector('.main-container .snippets-item')) {
-			(new CodeFlask).runAll('.main-container .snippets-item .content', { language: '', lineNumbers: true });
-		}
+	showallSnippetListener(ev) {
+		document.querySelector('.top-container .snippet-list-container').classList.add('hide');
+		document.querySelector('.top-container .snippet-add-button').classList.remove('hide');
 		
-		if (this.bindedEvents)
-			return this;
+		this.loadData(this.renderList.bind(this, '.main-container'));
 		
-		this.bindedEvents = true;
+		return this;	
+	}
+	
+	changeFiletypeListener(ev) {
+		let extension	= ev.target.value.replace(/.+(.[a-zA-z0-9]{2,4})$/, "$1"),
+			lang		= Utils.getLangByExtension(extension);
 		
-		document.body.addEventListener('click', ev => {
-			for ( let item in this.bindClickMaps) {
-				if (ev.target.classList.contains(item)) {
-					ev.preventDefault();
-					this.bindClickMaps[item].call(this, ev);
-					return false;
-				}
-			}
-		});
-		
-		return this;
+		this.reloadEditor(lang);
 	}
 	
 	addSnippetListener(ev) {
@@ -74,22 +68,6 @@ class SnippetV extends View {
 		return this
 	}
 	
-	showallSnippetListener(ev) {
-		document.querySelector('.top-container .snippet-list-container').classList.add('hide');
-		document.querySelector('.top-container .snippet-add-button').classList.remove('hide');
-		
-		this.loadData(this.renderList.bind(this, '.main-container'));
-		
-		return this;	
-	}
-	
-	changeFiletypeLietener(ev) {
-		let extension	= ev.target.value.replace(/.+(.[a-zA-z0-9]{2,4})$/, "$1"),
-			lang		= Utils.getLangByExtension(extension);
-		
-		this.reloadEditor(lang);
-	}
-	
 	saveSnippetListener(ev) {
 		let fields		= Array.from(ev.target.parentNode.querySelectorAll('input, textarea')),
 			newFields	= {};
@@ -99,8 +77,7 @@ class SnippetV extends View {
 			item.value = "";
 		});
 		
-		this.editor.update("");
-			
+		this.editor.update("");	
 		this.saveSnippet(newFields);
 		
 		return this
@@ -134,23 +111,6 @@ class SnippetV extends View {
 		this.editor.onUpdate(code => textarea.value = code);
 		
 		return this;
-	}
-	
-	bindFormEvents() {
-		if (this.bindedFormEvents)
-			return this;
-		
-		this.bindedFormEvents = true;
-		
-		document.body.addEventListener('focusout', ev => {
-			for ( let item in this.bindBlurMaps) {
-				if (ev.target.classList.contains(item)) {
-					ev.preventDefault();
-					this.bindBlurMaps[item].call(this, ev);
-					return false;
-				}
-			}
-		});
 	}
 }
 
