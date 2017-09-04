@@ -1,13 +1,31 @@
-var SnippetCollection = require('../collections/Snippet.js');
+var SnippetCollection	= require('../collections/Snippet.js'),
+	View				= require('./View.js');
 
-class SnippetV {
+class SnippetV extends View {
+	
 	constructor() {
-		this.collection = new SnippetCollection();
-		this.collection.fetch().then(this.loadView.bind(this));
+		super();
+		
+		this.templateName	= 'snippet';
+		this.collection		= new SnippetCollection();
+		this.loadData();
+		
+		return this;
 	}
 
-	loadView() {
-		console.log(this.collection);
+	loadList(targetElement) {
+		if (!targetElement)
+			throw new Error('A target element is needed.');
+		
+		return (this.everFetched ? this.renderList(targetElement) : this.addFetchCallback(this.renderList.bind(this, targetElement)));
+	}
+	
+	renderList(targetElement, data) {
+		data = data ? data.data : this.collection.toJSON();
+		
+		this.render(this.templates.list({snippets: data}), targetElement);
+		
+		return this;
 	}
 }
 

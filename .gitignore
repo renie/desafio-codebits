@@ -7,3 +7,4 @@ src/libs
 *.log
 npm-debug.log*
 package-lock.json
+templates.js

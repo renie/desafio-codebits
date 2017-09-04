@@ -1,8 +1,8 @@
-require('../../commonForTests.js');
+require('../../commonForAPITests.js');
 
 var url = URLAPIPATH;
 
-describe('Root', () => {
+describe('API Root', () => {
 	
 	describe('Success Tests', () => {
 		it('GET / : Static serving', (done) => {

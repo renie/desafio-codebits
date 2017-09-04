@@ -1,6 +1,6 @@
 var Snippet = require('../models/Snippet');
 
-class SnippetColl extends Backbone.Collection {
+class SnippetCollection extends Backbone.Collection {
 
 	get url() {
 		return '/api/snippet';
@@ -20,4 +20,4 @@ class SnippetColl extends Backbone.Collection {
 	}
 }
 
-module.exports = SnippetColl;
+module.exports = SnippetCollection;

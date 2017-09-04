@@ -1,7 +1,9 @@
 'use strict';
 
-var ListSnippets = require('./views/Snippet');
+require('./globalize.js');
+
+var SnippetsView = require('./views/Snippet');
 
 (function(){
-	new ListSnippets();
+	(new SnippetsView()).loadList('#snippet_list');
 })();

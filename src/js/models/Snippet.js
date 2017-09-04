@@ -8,7 +8,7 @@ class SnippetM extends Backbone.Model {
 	}
 
 	parse(res) {
-		return res.data;
+		return res;
 	}
 
 	construct() {

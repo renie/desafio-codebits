@@ -7,7 +7,7 @@
     "build": "grunt",
     "debug": "NODE_ENV=devtest nodemon --inspect --use_strict server.js",
     "start": "nodemon --use_strict server.js",
-    "test": "NODE_ENV=autotest mocha --use-strict --full-trace -- ./test/**/*.js"
+    "test": "NODE_ENV=autotest mocha --use-strict --full-trace --recursive --full-trace -- test"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/renie/desafio-codebits#readme",
   "devDependencies": {
+    "app-root-path": "^2.0.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -30,17 +31,22 @@
     "grunt-browserify": "^5.2.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-handlebars": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-mkdir": "^1.0.0",
     "grunt-processhtml": "^0.4.1",
+    "grunt-sass": "^2.0.0",
+    "intercept-require": "^1.1.0",
+    "jsdom": "^11.2.0",
+    "jsdom-global": "^3.0.2",
     "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
+    "sinon": "^3.2.1",
     "supertest": "^3.0.0",
     "time-grunt": "^1.4.0"
   },
   "dependencies": {
-    "app-root-path": "^2.0.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "mongoose": "^4.11.9"

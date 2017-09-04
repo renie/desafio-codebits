@@ -10,7 +10,7 @@ module.exports = grunt => {
 		pkg: grunt.file.readJSON('package.json'),
 		copy: {
 			main: { expand: true, cwd: tempPath, src: '**', dest: publicPath },
-			libs: { expand: true, cwd: sourcePath + 'libs', src: '**', dest: publicPath + 'libs' }
+			libs: { expand: true, cwd: sourcePath + 'libs', src: ['**', '!templates/**/*'], dest: publicPath + 'libs' }
 		},
 		
 		clean: {
@@ -29,18 +29,46 @@ module.exports = grunt => {
 		
 		processhtml: { 
 			dist: { 
-				files: { 'temp/index.html': ['src/index.html'] }
+				files: { 'temp/index.html': [sourcePath + 'index.html'] }
+			}
+		},
+		
+		handlebars: {
+			compile: {
+				options: {
+					namespace: filePath => {
+						let regex = /^src\/templates\/([a-z0-9]+)\/[a-z0-9]+.hbs$/;
+						return filePath.replace(regex, "_templates.$1");
+					},
+					commonjs: true,
+					processName: filePath => {
+						let regex = /^src\/templates\/[a-z0-9]+\/([a-z0-9]+).hbs$/;
+						return filePath.replace(regex, "$1");
+					}
+				},
+				files: {
+					'src/js/templates.js': sourcePath + 'templates/**/*.hbs',
+					'temp/js/templates.js': sourcePath + 'templates/**/*.hbs'
+				}
+			}
+		},
+		
+		sass: { 
+			dist: {                        
+				files: {
+					'temp/style/app.css': sourcePath + 'style/snippet.scss',
+				}
 			}
 		},
 		
 		browserify: {
 			dist: {
 				files: {
-					'temp/js/app.js': 'src/js/**/*.js'
+					'temp/js/app.js': [sourcePath + 'js/**/*.js', tempPath + 'templates/**/*.js']
 				},
 				options: {
-					transform: [['babelify', { presets: "es2015" }]],
-					plugins: "uglifyify"
+					transform: [['babelify', { presets: 'es2015' }]],
+					exclude: ['jquery', 'underscore']
 				}
 			}
 		},
@@ -50,7 +78,7 @@ module.exports = grunt => {
 				files: [sourcePath + '**/*'],
 				tasks: ['default'],
 				options: { spawn: false },
-			},
+			}
 		}
 		
 	});
@@ -58,6 +86,5 @@ module.exports = grunt => {
 	grunt.registerTask('clear', ['clean:all', 'mkdir']);
 	grunt.registerTask('js', ['browserify']);
 	
-	
-	grunt.registerTask('default', ['clear', 'processhtml', 'js', 'copy', 'clean:tmp']);
+	grunt.registerTask('default', ['clear', 'processhtml', 'sass', 'handlebars', 'js', 'copy', 'clean:tmp']);
 };

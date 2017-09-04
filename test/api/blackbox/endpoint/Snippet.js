@@ -1,4 +1,4 @@
-require('../../commonForTests.js');
+require('../../commonForAPITests.js');
 
 var testData = [
 		{"description":"Description JS for test 1","filename":"test1.js","content":"document.write(\"bla\");"},
@@ -8,7 +8,7 @@ var testData = [
 	url = URLAPIPATH + 'snippet/',
 	receivedData;
 
-describe('Snippet', () => {
+describe('API Snippet', () => {
 	
 	describe('Success Tests', () => {
 		it('GET /snippet : get a list of all entries (empty)', (done) => {
