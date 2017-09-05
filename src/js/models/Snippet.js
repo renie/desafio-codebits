@@ -16,7 +16,7 @@ class SnippetModel extends Backbone.Model {
 		if (res.nModified)
 			return false;
 		
-		res.extension	= res.filename.replace(/.+(\.[a-zA-z0-9]{2,4})$/, "$1");
+		res.extension	= res.filename.replace(/.+(\.[a-zA-z0-9]{1,4})$/, "$1");
 		res.lang		= Utils.getLangByExtension(res.extension);
 		
 		return res;

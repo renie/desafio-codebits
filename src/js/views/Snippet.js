@@ -86,6 +86,14 @@ class SnippetV extends View {
 			item.value = "";
 		});
 		
+		if (!newFields.filename || 
+			!newFields.filename.match(/.+(\.[a-zA-z0-9]{1,4})$/) ||
+			!newFields.content) {
+			alert('Filename and the content of your snippet are required for sending this form. Remember, file name needs an extension.');
+			ev.preventDefault();
+			return false;
+		}
+		
 		if (newFields.id) {
 			newFields._id = newFields.id;
 			delete newFields.id;
