@@ -15,7 +15,8 @@ class SnippetV extends View {
 									'snippet-edit-button'			: this.addSnippetListener,
 									'snippet-showall-button'		: this.showallSnippetListener,
 									'snippet-add-button'			: this.addSnippetListener,
-									'snippet-change-filetype-btn'	: this.saveSnippetListener
+									'snippet-save-btn'				: this.saveSnippetListener,
+									'snippet-delete-btn'			: this.removeSnippetListener
 								},
 								'focusout' : {
 									'snippet-change-filetype-field'	: this.changeFiletypeListener	
@@ -94,6 +95,27 @@ class SnippetV extends View {
 		this.saveSnippet(newFields);
 		
 		return this
+	}
+	
+	removeSnippetListener(ev) {
+		let answer = window.confirm('Do you confirm this deletion?');
+		
+		answer && this.deleteSnippet(ev.target.dataset.id);
+		
+		return this;
+	}
+	
+	deleteSnippet(id) {
+		let model = new SnippetModel({_id: id});
+		model.destroy().then(data => {
+							alert('Snippet Deleted!');
+							this.loadData(() => {
+								this.loadList('.top-container .snippet-list-container')
+								this.loadList('.main-container');
+							});
+						}).catch(e => alert('Error on Snippet deleting. Try again later...'));
+		
+		return this;
 	}
 	
 	saveSnippet(data) {

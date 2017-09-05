@@ -41,7 +41,7 @@
 			}
 		}
 		
-		.content, .avatar, .language {
+		.content, .avatar, .language, .snippet-delete-btn {
 			display: none;
 		}
 	}
@@ -81,6 +81,15 @@
 		.filename a, .filename a:visited {
 			color: $blue !important;
 			font-weight: bold !important;
+		}
+		
+		.snippet-delete-btn {
+			background: RGBA(150, 50, 50, 0.2);
+			border: 2px solid #900;
+			color: #900;
+			float: right;
+			position: relative;
+			top: -30px;
 		}
 		
 		.content {
